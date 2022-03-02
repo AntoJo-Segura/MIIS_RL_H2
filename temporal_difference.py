@@ -21,7 +21,7 @@ def TD0(problem :problem, max_iter = 100):
         #Sp = problem.state_space
         #for ip, sp in enumerate(Sp):#innecessary loop because it is one-step
         a = policy(s)
-        i1 = 1 #next step state after a
+        i1 = problem.next_state(s,a)
         R = problem.reward(s,a) #next reward state
         V[i] = V[i] + alpha * (R + gamma * V[i1] - V[i])
 
