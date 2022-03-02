@@ -36,10 +36,10 @@ class problem():
 
     def next_state(self, s,a):
         It = 0
-        if np.random() < self.arrival_p :
+        if np.random.rand() < self.arrival_p :
             It = 1
         St = 0
-        if np.random() < self.rate(a):
+        if np.random.rand() < self.rate(a):
             St = 1
 
         return self.trunc(s+ It - St)
