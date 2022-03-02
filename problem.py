@@ -39,7 +39,7 @@ class problem():
         if np.random() < self.arrival_p :
             It = 1
         St = 0
-        if np.random() < rate(a):
+        if np.random() < self.rate(a):
             St = 1
 
         return self.trunc(s+ It - St)
