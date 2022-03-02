@@ -21,7 +21,7 @@ class policy():
         self.policy_p = prob
 
 
-class problem():
+class Problem():
     def __init__(self, pol : policy, N = 100):
         self.N = N
         self.actions = ["low", "high"] 
@@ -81,7 +81,7 @@ class problem():
 
 
 
-class matrix_problem(problem):
+class matrix_problem(Problem):
     def __init__(self, pol: policy , N = 100):
         super().__init__(pol, N)
 
@@ -112,7 +112,7 @@ def lazy_p_p(action, state):
 
 
 lazy_policy = policy(lazy_p, lazy_p_p)
-lazy_problem = problem(lazy_policy)
+lazy_problem = Problem(lazy_policy)
 
 def aggre_policy( state):
     if state < 50:
@@ -128,7 +128,7 @@ def aggre_policy_p( action, state):
 
 
 agg_policy = policy(aggre_policy, aggre_policy_p)
-agg_problem = problem(agg_policy)
+agg_problem = Problem(agg_policy)
 
 ###check vec_to_f#######
 lazy_policy = policy(lazy_p, lazy_p_p)
