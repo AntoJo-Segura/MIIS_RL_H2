@@ -1,30 +1,24 @@
 
 from problem import *
 
-def TD0(problem :problem, max_iter = 100):
+def TD0(problem :problem, transitions = 1e4):
 
-    increment = 0
     threshold = 1e-3
     gamma = problem.gamma
     reward = problem.reward
     S = problem.state_space
-    transition_p = problem.transition_p
-    actions = problem.actions
-    policy = problem.policy_p
+    policy = problem.policy
     V = [threshold]*len(S)
-    v = 0
-    increment = threshold +1 #just enter into loop
-    loop = 0 
-    alpha = 0.1 #step size
     
-    for i,s in enumerate(S):#For each s in S
-        #Sp = problem.state_space
-        #for ip, sp in enumerate(Sp):#innecessary loop because it is one-step
+    s = problem.N - 1 #inital state
+    t = 0
+    while t < transitions:
+        t += 1
+        alpha_t = 1e5/(t + 1e5)
         a = policy(s)
-        i1 = problem.next_state(s,a)
-        R = problem.reward(s,a) #next reward state
-        V[i] = V[i] + alpha * (R + gamma * V[i1] - V[i])
-
+        s1 = problem.next_state(s,a)
+        R = reward(s,a) #next reward state
+        V[s] = V[s] + alpha_t * (R + gamma * V[s1] - V[s])
+        s  = s1
     return V
 
-TD0(lazy_problem)
