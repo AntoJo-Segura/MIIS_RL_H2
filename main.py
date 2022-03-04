@@ -3,6 +3,9 @@ from problem import *
 from temporal_difference import *
 
 colors = ['red', 'green', 'blue', 'violet']
+
+#TD0
+
 def get_plots_A(ax, V_problem, title, trans, index):
     ax.set_xlabel('State')
     ax.set_ylabel('V (s)')
@@ -32,10 +35,12 @@ def solution_1A():
 
     fig.savefig('V_TD0_agg.png')
 
-def get_plots_B(ax, V_problem, title, fm, index):
+#LSTD
+
+def get_plots_B(ax, V_problem, title, fm, trans,index):
     ax.set_xlabel('State')
     ax.set_ylabel('V (s)')
-    ax.set_title(title, fontsize=24, loc="center", pad=10)
+    ax.set_title(title+ ' trans = '+str(trans), fontsize=24, loc="center", pad=10)
     ax.scatter(
         range(0, len(V_problem)), V_problem, 
         marker='.', color=colors[index], 
@@ -47,22 +52,23 @@ def get_plots_B(ax, V_problem, title, fm, index):
 def solution_1B():
     f_map_list = [f_map_fine,f_map_coarse, f_map_pwl]
     f_map_name =['Fine','Coarse', 'PWL']
-
+    trans = 1e5
+    
     fig, ax = subplots()
     for i, f_map in enumerate(f_map_list):
-        V_lazy = LSTD(lazy_problem,f_map_fine, 1e5)
-        get_plots_B(ax,V_lazy,'Lazy',f_map_name[i], i)
+        V_lazy = LSTD(lazy_problem,f_map, trans)
+        get_plots_B(ax,V_lazy,'Lazy',f_map_name[i], trans,i)
 
     fig.savefig('V_LSTD_lazy.png')
 
     fig, ax = subplots()
     for i, f_map in enumerate(f_map_list):
-        V_agg = LSTD(agg_problem,f_map_fine, 1e5)
-        get_plots_B(ax,V_agg,'Agg',f_map_name[i], i)
+        V_agg = LSTD(agg_problem,f_map, trans)
+        get_plots_B(ax,V_agg,'Agg',f_map_name[i], trans,i)
 
     fig.savefig('V_LSTD_agg.png')
 
 
 if __name__ == '__main__':
-    solution_1A()
+    # solution_1A()
     solution_1B()
