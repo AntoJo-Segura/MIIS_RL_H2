@@ -136,3 +136,28 @@ lazy_policy = policy(lazy_p, lazy_p_p)
 lazy_policy.vec_to_f(["high"]*len(range(0,100)))
 # print(type(lazy_policy.policy))#class function
 # print(lazy_policy.policy(15) == "high")
+
+f_map_fine = np.identity(lazy_problem.N)
+
+def f_map_coarse_f(N):
+    phi = np.zeros((N, int(N/5)))
+
+    for x in range(0,N):
+        for i in range(1,int(N/5)+1):
+            if 5*(i - 1) <= x <= 5*i - 1: 
+                phi[x, i-1] = 1
+    return phi
+
+f_map_coarse = f_map_coarse_f(lazy_problem.N)
+
+def piecewise_feature_map(N):
+    phi = np.zeros((N, 2*int(N/5)))
+    phi[:, :int(N/5)] = f_map_coarse_f(N)
+
+    for x in range(0,N):
+        for i in range(0,int(N/5)):
+            if 5*(i - 1)+5 <= x <= 5*i - 1+5: #second part of N/5
+                phi[x, int(N / 5) + i] = 1*(x - 5*((i+1) - 1))/5
+    return phi
+
+f_map_pwl = piecewise_feature_map(lazy_problem.N)
