@@ -31,7 +31,7 @@ def solution_1A():
     fig, ax = subplots()
     for i,exp in enumerate(exponent):
         V_lazy = TD0(agg_problem, 10**exp)
-        get_plots_A(ax,V_lazy,'Aggresive',10**exp, i)
+        get_plots_A(ax,V_lazy,'Aggressive',10**exp, i)
 
     fig.savefig('V_TD0_agg.png')
 
@@ -64,7 +64,7 @@ def solution_1B():
     fig, ax = subplots()
     for i, f_map in enumerate(f_map_list):
         V_agg = LSTD(agg_problem,f_map, trans)
-        get_plots_B(ax,V_agg,'Agg',f_map_name[i], trans,i)
+        get_plots_B(ax,V_agg,'Aggressive',f_map_name[i], trans,i)
 
     fig.savefig('V_LSTD_agg.png')
 
