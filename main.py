@@ -40,7 +40,7 @@ def solution_1A():
 def get_plots_B(ax, V_problem, title, fm, trans,index):
     ax.set_xlabel('State')
     ax.set_ylabel('V (s)')
-    ax.set_title(title+ ' trans = '+str(trans), fontsize=24, loc="center", pad=10)
+    ax.set_title(title+ ' trans = '+str(int(trans)), fontsize=24, loc="center", pad=10)
     ax.scatter(
         range(0, len(V_problem)), V_problem, 
         marker='.', color=colors[index], 
@@ -70,5 +70,5 @@ def solution_1B():
 
 
 if __name__ == '__main__':
-    # solution_1A()
+    solution_1A()
     solution_1B()
